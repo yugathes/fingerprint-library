@@ -95,10 +95,10 @@ if(isset($_GET['errorFlask'])){
 				<?php	while($baris= mysqli_fetch_array($resultGet, MYSQLI_BOTH))	{?>
 					<div class="input-group">
 						<label>Name</label>
-						<input type="text" name="name" value="<?php echo $baris['name']; ?>" disabled><br><br>
+						<input type="text" name="name" value="<?php echo $baris['name']; ?>"><br><br>
 						<input type="hidden" name="id" value="<?php echo $baris['id']; ?>">
 						<label>Student ID</label>
-						<input type="text" name="student_id" pattern="^[A-Z][A-Z]0[01]\d{5}$" value="<?php echo $baris['id'] ?>"><br><br>
+						<input type="text" name="student_id" pattern="^[A-Z][A-Z]0[01]\d{5}$" value="<?php echo $baris['student_id'] ?>"><br><br>
 						<label>IC No</label>
 						<input type="text" name="ic_no" value="<?php echo $baris['ic_no'] ?>"><br><br>
 						<label>Email</label>
@@ -106,9 +106,10 @@ if(isset($_GET['errorFlask'])){
 						<label>Course</label>
 						<select name="course_id" required>
 							<?php
-							$value = '';
+							
 							// Generate HTML options from the array
 							foreach ($courseDatas as $courseData) {
+								$value = '';
 								if($baris['course_id']== $courseData['id'])
 									$value = ' selected';
 								echo '<option value="' . $courseData['id'] . '"  '.$value.'>' . $courseData['name'] . '</option>';
@@ -118,12 +119,15 @@ if(isset($_GET['errorFlask'])){
 						<label>Semester</label>
 						<select name="semester_id" required>
 							<?php
-							$value2 = '';
+							
 							// Generate HTML options from the array
 							foreach ($semesterDatas as $semesterData) {
-								if($baris['semester_id']== $semesterData['id'])
-									$value2 = ' selected';
-								echo '<option value="' . $semesterData['id'] . '" '.$value.'>' . $semesterData['name'] . '</option>';
+								$value2 = '';
+								// echo $semesterData['id'];
+								if($baris['semester_id'] == $semesterData['id']){
+									echo "Hi";
+									$value2 = ' selected';}
+								echo '<option value="' . $semesterData['id'] . '" '.$value2.'>' . $semesterData['name'] . '</option>';
 							}
 							?>
 						</select><br><br>

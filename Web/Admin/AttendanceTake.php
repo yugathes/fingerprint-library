@@ -58,14 +58,19 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	
 }
 </style>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-	<a style="float:right;margin-right:10px;background-color:black;" href="ExamAdd.php" class="btn">Add Exam</a><br><br>
+<?php	
+	$examID = $_GET["id"];
+	$takeAtt = "http://".$ip.":5000/attendance?cID=".$examID;?>
+	<a style="float:right;margin-right:10px;background-color:black;" href="<?php echo $takeAtt?>" class="btn">Add Exam</a><br><br>
 	<h1 align="center">Exam</h1>
 <?php
-    $examID = $_GET["id"];
+    
 	$queryGet = "SELECT
                     s.name,
+                    she.id,
                     she.attendance,
                     she.attendance_date_time
                 FROM
@@ -84,8 +89,8 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 		<tr>
 			<th>No</th>
 			<th>Name</th>
-			<th colspan=2>Exam Date & Time</th>
-			<th>No Students</th>
+			<th>Attendance</th>
+			<th colspan=2>Attendance Date Time</th>
 			<th>Action</th>
 		</tr>	 
 		<form>
@@ -93,18 +98,46 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 		if(mysqli_num_rows($resultGet)>0){
 		while($row= mysqli_fetch_array($resultGet, MYSQLI_BOTH))
 		{	
-			$datetimeObject = new DateTime($row['datetime']);
+			if($row['attendance_date_time']){
+			$datetimeObject = new DateTime($row['attendance_date_time']);
 
 			// Get separate date and time variables
 			$date = $datetimeObject->format('Y-m-d');
 			$time = $datetimeObject->format('H:i:s');
+			}
+			else{
+				$date = "NULL";
+				$time = "NULL";
+			}
 			?>
 			<tr>
 				<td><?php echo $no;?></td>
-				<td><?php echo $row['exam_name']?></td>
+				<td><?php echo $row['name']?></td>
+				<td id="attendanceList<?php echo $no?>"><?php if($row['attendance']==1) echo "Present"; else echo "Not attended"?></td>
+				<script>
+		$(document).ready(function(){
+            function checkUpdates<?php echo $no?>() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'get_attendance.php', // PHP script to handle the request
+                    data: { id: <?php echo $row['id']; ?> }, // Send student ID to the server
+                    success: function(response){
+						console.log(response);
+                        $('#attendanceList<?php echo $no?>').html(response);
+                    },
+                    complete: function(){
+                        // Schedule the next check after a certain interval (e.g., 1 second)
+                        setTimeout(checkUpdates<?php echo $no?>, 1000);
+                    }
+                });
+            }
+
+            // Start checking for updates
+            checkUpdates<?php echo $no?>();
+        });
+</script>
 				<td><?php echo $date?></td>
 				<td><?php echo $time?></td>
-				<td><?php echo $row['num_stud']?></td>
 				<td><a href="ExamEdit.php?id=<?php echo $row['id'];?>">
 					<img border="0" alt="editB" src="../CSS/btn/editB.png" width="25" height="25"></a>
 					<a href="Delete.php?examID=<?php echo $row['id'];?>" onclick="return confirm('Are you sure?')">

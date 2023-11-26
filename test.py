@@ -20,7 +20,7 @@ finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 ip = s.getsockname()[0]
-link = "http://" + ip + "/Web/"
+link = "http://" + ip + "/Fingeprint/"
 errorLink = link + "Admin/StudentEdit.php?errorFlask="
 
 db = pymysql.connect(
@@ -179,14 +179,13 @@ def get_fingerprint():
 @app.route('/attendance')#attendance taking
 def attendance():
     classID = request.args.get('cID', default=0, type=int)
-    timeS = request.args.get('time', default="00:00:00", type=str)# GET link Attendance.php
     stop = request.args.get('stop', default=0, type=int)
     #import os
     #import pickle
     import time
     from datetime import datetime
     
-    date = datetime.now().strftime('%Y-%m-%d')
+    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     timeout = time.time() + 60*5
     
     try:
@@ -195,13 +194,16 @@ def attendance():
                 #print("Detected #", finger.finger_id, "with confidence", finger.confidence)
                 if(finger.confidence >150):
                     name = finger.finger_id
+                    print(name)
                     cursor = db.cursor()
-                    sql2 = "SELECT * FROM attendance WHERE usrID = '%d' AND time = '%s' AND date = '%s'" % (name, timeS, date)
+                    sql2 = "SELECT student_has_exam.*, student.name FROM student_has_exam INNER JOIN student ON student.id = student_has_exam.student_id WHERE student_has_exam.student_id = '%d' AND student_has_exam.exam_id = '%d'" % (name, classID)
                     try:
+                        print(sql2)
                         cursor.execute(sql2)
-                        if(cursor.rowcount==0):
-                            sql = "INSERT INTO attendance (attnID, time, date, usrID, cID)  values (NULL, '%s', '%s', '%d', '%d')" % (timeS, date, name, classID)
-                            print("Attended :",name)
+                        if(cursor.rowcount>0):
+                            row = cursor.fetchone()
+                            sql = "UPDATE student_has_exam SET attendance = 1, attendance_date_time = '%s' WHERE id = '%d'" % (date, row[0])
+                            print("Attended :",sql)
                             try:
                                 cursor.execute(sql)
                                 print(cursor.rowcount, "record(s) affected")
@@ -216,7 +218,7 @@ def attendance():
                     #display.lcd_display_string(str(finger.finger_id), 2)
             else:
                 cursor = db.cursor()
-                sql3 = "Select * FROM attendance WHERE cID ='%d' AND time = '%s' AND date = '%s'" % (classID, timeS, date)
+                sql3 = "SELECT * FROM student_has_exam WHERE exam_id = '%d'" % (classID)
                 try:
                     cursor.execute(sql3)
                     # print(cursor.rowcount, "Total updated")
