@@ -118,7 +118,9 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                     data: { selectedValue: selectedValue },
                     success: function(response){
                         // Update the content of the second select with the received options
+                        console.log(response);
                         $('#exam').html(response);
+
                     }
                 });
             });
