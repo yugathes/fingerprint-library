@@ -130,25 +130,25 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 <?php
 	if(isset($_POST['reg_semester']))
 	{
-		$name = $_POST['name'];
-		$name = preg_replace("/'/", "\&#39;", $name);
+		$student = $_POST['student'];
+		$exam = $_POST['exam'];
 		
-		$sql = "INSERT INTO semester (name) 
-				values ('".$name."')";
+		$sql = "INSERT INTO student_has_exam (student_id, exam_id, attendance, attendance_date_time) 
+				values ('".$student."', '".$exam."', 0, NULL)";
 		$result = mysqli_query($link, $sql);
 		if (!$result)
 		{
-			die("Error:".mysqli_error($ds));
+			die("Error:".mysqli_error($link));
 			$fail = "Please Check Registration.";
 			echo "<script type='text/javascript'>alert('$fail');
-			document.location='Management.php';
+			document.location='EnrollAdd.php';
 			</script>"; 
 		}
 		else
 		{
 			$success = "Registration Success.";
 			echo "<script type='text/javascript'>alert('$success');
-			document.location='Management.php';
+			document.location='EnrollAdd.php';
 			</script>"; 
 		}
 	}	
