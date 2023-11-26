@@ -108,6 +108,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
             $('#student').change(function(){
                 // Get the selected value
                 var selectedValue = $(this).val();
+                console.log(selectedValue);
 
                 // Make an AJAX request to the server
                 $.ajax({
