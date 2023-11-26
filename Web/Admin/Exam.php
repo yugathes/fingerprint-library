@@ -63,7 +63,18 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	<a style="float:right;margin-right:10px;background-color:black;" href="ExamAdd.php" class="btn">Add Exam</a><br><br>
 	<h1 align="center">Exam</h1>
 <?php
-	$queryGet = "SELECT * FROM exam";	
+	$queryGet = "SELECT
+					e.id AS id,
+					e.name AS exam_name,
+					e.datetime AS datetime,
+					COUNT(she.student_id) AS num_stud
+				FROM
+					exam e
+				LEFT JOIN
+					student_has_exam she ON e.id = she.exam_id
+				GROUP BY
+					e.id, e.name;
+";	
 	$resultGet = mysqli_query($link,$queryGet);
 	if(!$resultGet)
 	{
@@ -75,6 +86,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 		<tr>
 			<th>No</th>
 			<th>Name</th>
+			<th colspan=2>Exam Date & Time</th>
 			<th>No Students</th>
 			<th>Action</th>
 		</tr>	 
@@ -83,10 +95,18 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 		if(mysqli_num_rows($resultGet)>0){
 		while($row= mysqli_fetch_array($resultGet, MYSQLI_BOTH))
 		{	
+			$datetimeObject = new DateTime($row['datetime']);
+
+			// Get separate date and time variables
+			$date = $datetimeObject->format('Y-m-d');
+			$time = $datetimeObject->format('H:i:s');
 			?>
 			<tr>
 				<td><?php echo $no;?></td>
-				<td><?php echo $row['name']?></td>
+				<td><?php echo $row['exam_name']?></td>
+				<td><?php echo $date?></td>
+				<td><?php echo $time?></td>
+				<td><?php echo $row['num_stud']?></td>
 				<td><a href="ExamEdit.php?id=<?php echo $row['id'];?>">
 					<img border="0" alt="editB" src="../CSS/btn/editB.png" width="25" height="25"></a>
 					<a href="Delete.php?examID=<?php echo $row['id'];?>" onclick="return confirm('Are you sure?')">

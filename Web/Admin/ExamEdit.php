@@ -41,29 +41,9 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 						<label>Name</label>
 						<input type="text" name="name" value="<?php echo $baris['name']; ?>"><br><br>
 						<input type="hidden" name="id" value="<?php echo $baris['id']; ?>">
-						<label>Student</label>
-						<?php						
-						$queryGet1 = "select * from student";
-						$resultGet1 = mysqli_query($link,$queryGet1);
-						if(!$resultGet1)
-						{
-							die ("Invalid Query - get Register List: ". mysqli_error($link));
-						}
-						else 
-						{
-							$i = 0;
-						while($row= mysqli_fetch_array($resultGet1, MYSQLI_BOTH))	{ 
-							?>
-						<div class="checkbox">
-						<label for="student<?php echo $i?>"><?php echo $row['name']?>
-							<input type="checkbox" id="student<?php echo $i?>" name="student[<?php echo $i?>]" value="<?php echo $row['id']?>">
-						</label><br>
-						</div>
-				<?php	
-						$i++;
-						}
-						}
-						?><br><br>
+						<label>Date & Time</label>
+						<input type="datetime-local" name="datetime" value="<?php echo $baris['datetime']; ?>">
+						<br><br>
 						<button style="position: relative;left: 80%"; type="submit" class="btn" name="exam_update">Update</button>
 					</div> <?php	}?>
 			</form>
@@ -74,16 +54,16 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	}
 	if(isset($_POST['exam_update']))
 	{
-		$classID = $_POST['id'];
-		$students = $_POST['student'];
-		$noStudents = count($students);
-		$no = 0;
-		foreach($students as $student){
-			$sql = "INSERT INTO student_has_exam (student_id, exam_id, attendance, attendance_date_time) 
-				values ('".$student."', '".$classID."', 0, NULL)";
-			$result[$no] = mysqli_query($link, $sql);
-		}
+		$id = $_POST['id'];
+		$className = $_POST['name'];
+		$datetime = $_POST['datetime'];
 		
+		
+		$queryInsert = "UPDATE exam SET
+		   name = '".$className."', 
+		   datetime = '".$datetime."'
+		   WHERE id = '$id'";
+		$result = mysqli_query($link,$queryInsert);
 		if (!$result)
 		{
 			die("Error:".mysqli_error($ds));

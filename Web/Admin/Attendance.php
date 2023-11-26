@@ -81,37 +81,6 @@ label {
   font-size: 24px;
 }
 
-.btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  width: 100%;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 17px;
-}
-
-.btn:hover {
-  background-color: #45a049;
-}
-.btn_add{
-    padding: 15px;
-    font-size: 15px;
-    background: #1D96D1;
-    border-style: outset;
-    border-radius: 10px;
-    cursor: pointer;
-  color: white;
-  width: 15%;
-	float: right;
-}
-
-.btn_add:hover {
-  background-color: darkgrey;
-}
-
 span.price {
   float: right;
   color: grey;
@@ -210,12 +179,36 @@ input[type=text] {
     left: 50%;
     position: absolute;
 }
+.btn-take{
+	padding: 8px;
+    background: green;
+    color: black;
+	text-decoration: solid;
+}
+.btn-view{
+	padding: 8px;
+    background: blue;
+    color: white;
+	text-decoration: solid;
+}
 </style>
 </head>
 
 <body>
+<a style="float:right;margin-right:10px" href="EnrollAdd.php" class="btn">Enroll</a><br><br>
 <?php
-$queryGet = "select * from student_has_exam ORDER BY attendance_date_time DESC";	
+$queryGet = "SELECT
+    e.id AS exam_id,
+    e.name AS exam_name,
+    e.datetime AS datetime,
+    COUNT(she.student_id) AS num_stud,
+    SUM(she.attendance) AS total_attendance
+FROM
+    exam e
+LEFT JOIN
+    student_has_exam she ON e.id = she.exam_id
+GROUP BY
+    e.id, e.name;";	
 $resultGet = mysqli_query($link,$queryGet);
 if(!$resultGet)
 {	die ("Invalid Query - get Items List: ". mysqli_error($link));	}
@@ -224,10 +217,11 @@ else{	?>
 	<table id="table" border="1" align="center">
 		<tr>
 			<th>No</th>
-			<th>Class</th>
-			<th>Time</th>
-			<th>Date</th>
-			<th>Student</th>
+			<th>Exam</th>
+			<th colspan=2>Date & Time</th>
+			<th>No Students</th>
+			<th>Attendented Students</th>
+			<th>Action</th>
 		</tr>
 <?php				if(mysqli_num_rows($resultGet)<=0){	?>
 		<tr>
@@ -237,24 +231,25 @@ else{	?>
 			$no=1;
 			while($row1= mysqli_fetch_array($resultGet, MYSQLI_BOTH))
 			{	
-				$queryGe1 = "select * from student where id = '".$row1['student_id']."'";	
-				$resultGe1 = mysqli_query($link,$queryGe1);
-				
-				if(!$resultGe1)
-				{	die ("Invalid Query - get Items List: ". mysqli_error($link));	}
-				else{	
-					$resultGet1 = mysqli_query($link,"select * from exam where id = '".$row1['exam_id']."'");
-					$row= mysqli_fetch_array($resultGet1, MYSQLI_BOTH);
-					
-					while($ro1= mysqli_fetch_array($resultGe1, MYSQLI_BOTH)){
+				$datetimeObject = new DateTime($row1['datetime']);
+
+				// Get separate date and time variables
+				$date = $datetimeObject->format('Y-m-d');
+				$time = $datetimeObject->format('H:i:s');
 		?>
 		<tr>
 			<td><?php echo $no;?></td>
 			
-			<td><?php echo $row['name'];?></td>
-			<td><?php echo $row1['attendance_date_time'];$no++;?></td>
-			<td><?php echo $ro1['username'];?></td>
-		</tr><?php	}	}	}	}?>
+			<td><?php echo $row1['exam_name'];?></td>
+			<td><?php echo $date;$no++;?></td>
+			<td><?php echo $time?></td>
+			<td><?php echo $row1['num_stud']?></td>
+			<td><?php echo $row1['total_attendance'];?></td>
+			<td>
+				<a href="AttendanceTake.php?id=<?php echo $row1['exam_id'];?>" class="btn btn-take">Take Attendance</a>
+				<a href="AttendanceView.php?id=<?php echo $row1['exam_id'];?>" class="btn btn-view">View Attendance</a>
+			</td>
+		</tr><?php	}	}?>
 	</table>
 <?php	}?>
 	<script>
