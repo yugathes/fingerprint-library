@@ -148,7 +148,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 		{
 			$success = "Registration Success.";
 			echo "<script type='text/javascript'>alert('$success');
-			document.location='EnrollAdd.php';
+			document.location='Enroll.php';
 			</script>"; 
 		}
 	}	
