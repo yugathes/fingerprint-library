@@ -21,7 +21,10 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	<h1 align="center"> Student</h1>
 	<br>
 <?php
-	$queryGet = "SELECT * FROM student_has_exam INNER JOIN student ON student_has_exam.student_id = student.id";
+	$queryGet = "SELECT student_has_exam.*, student.name as studentName, exam.name AS examName 
+                FROM student_has_exam 
+                INNER JOIN student ON student_has_exam.student_id = student.id
+                INNER JOIN exam ON student_has_exam.exam_id = exam.id";
 	$resultGet = mysqli_query($link,$queryGet);
 	if(!$resultGet)
 	{
@@ -39,8 +42,8 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 <?php	while($row= mysqli_fetch_array($resultGet, MYSQLI_BOTH))
 		{	?>
 			<tr>
-				<td><?php echo $row['name']?></td>
-				<td><?php echo $row['student_id'];?></td>
+				<td><?php echo $row['studentName']?></td>
+				<td><?php echo $row['examName'];?></td>
 				<td><?php echo $row['ic_no']; ?></td>
 				<td><?php echo $row['email']; ?></td>
 				<td class='word-wrap'><?php echo getCourseName($row['course_id']); ?></td>
