@@ -9,6 +9,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
 .mid{
 	margin: auto;
