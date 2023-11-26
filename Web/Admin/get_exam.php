@@ -3,13 +3,13 @@ include "../Auth/connection.php";
 
 // Get the selected value from the first select
 $selectedValue = $_POST['selectedValue'];
-
+echo $_POST['selectedValue'];
 $sql = "SELECT e.id, e.name
         FROM exam e
         WHERE e.id NOT IN (
             SELECT she.exam_id
             FROM student_has_exam she
-            WHERE she.student_id = $selectedStudentId
+            WHERE she.student_id = $selectedValue
         )";
 $result = mysqli_query($link,$sql);
 $options = '';
