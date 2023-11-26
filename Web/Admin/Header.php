@@ -11,6 +11,7 @@
 		<a <?php if (basename($_SERVER['PHP_SELF']) == "Student.php") echo "class='active'"?>href="Student.php">Student</a>
 		<a <?php if (basename($_SERVER['PHP_SELF']) == "Exam.php") echo "class='active'"?>href="Exam.php">Exam</a>
 		<a <?php if (basename($_SERVER['PHP_SELF']) == "Attendance.php") echo "class='active'"?>href="Attendance.php">Attendance</a>
+        <a <?php if (basename($_SERVER['PHP_SELF']) == "Enroll.php") echo "class='active'"?>href="Enroll.php">Enroll</a>
 	</div>
 	<div class="auth">
 <?php if(isset ($_SESSION["userId"])) //session userid gets value from text field named userid, shown in user.php
