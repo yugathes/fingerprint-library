@@ -44,11 +44,6 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 			<tr>
 				<td><?php echo $row['studentName']?></td>
 				<td><?php echo $row['examName'];?></td>
-				<td><?php echo $row['ic_no']; ?></td>
-				<td><?php echo $row['email']; ?></td>
-				<td class='word-wrap'><?php echo getCourseName($row['course_id']); ?></td>
-				<td class='word-wrap'><?php echo getSemesterName($row['semester_id']); ?></td>
-				<td><?php if($row['enrol_fingerprint']==1) echo "Enrolled"; else echo "Haven't Enrolled";?></td>
 				<td><a href="StudentEdit.php?id=<?php echo $row['id'];?>">
 					<img border="0" alt="editB" src="../CSS/btn/editB.png" width="25" height="25"></a>
 					<a href="Delete.php?sid=<?php echo $row['id'];?>" onclick="return confirm('Are you sure?')">
