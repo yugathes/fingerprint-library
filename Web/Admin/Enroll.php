@@ -21,7 +21,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	<h1 align="center"> Student</h1>
 	<br>
 <?php
-	$queryGet = "SELECT * FROM student_has_exam INNER JOIN students ON student_has_exam.student_id = students.id";
+	$queryGet = "SELECT * FROM student_has_exam INNER JOIN student ON student_has_exam.student_id = student.id";
 	$resultGet = mysqli_query($link,$queryGet);
 	if(!$resultGet)
 	{
