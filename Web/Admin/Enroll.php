@@ -17,11 +17,11 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 </style>
 </head>
 <body>
-	<a style="float:right;margin-right:10px" href="StudentAdd.php" class="btn">Add Student</a><br><br>
-	<h1 align="center"> Student Users</h1>
+	<a style="float:right;margin-right:10px" href="EnrollAdd.php" class="btn">Enroll</a><br><br>
+	<h1 align="center"> Student</h1>
 	<br>
 <?php
-	$queryGet = "select * from student";	
+	$queryGet = "SELECT * FROM student_has_exam INNER JOIN students ON student_has_exam.student_id = students.id";
 	$resultGet = mysqli_query($link,$queryGet);
 	if(!$resultGet)
 	{
@@ -32,12 +32,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	<table id="table" border="1" align="center">
 		<tr>
 			<th>Name</th>
-			<th>Student ID</th>
-			<th>IC No</th>
-			<th>Email</th>
-			<th>Course</th>
-			<th>Semester</th>
-			<th>Fingerprint Enrollment</th>
+			<th>Exam</th>
 			<th>Action</th>
 		</tr>	 
 		
