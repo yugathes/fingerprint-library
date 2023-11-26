@@ -76,7 +76,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 			<h1 class="header" style="background-color:red;">Enroll Exam</h1>
 				<div class="input-group2">
 					<label>Student Name*</label>
-					<select name="student">
+					<select name="student" id="student">
                         <option value="">Please choose one student</option>
                         <?php
                         $queryGet = "SELECT student.name as studentName, student.id as studentId,student_has_exam.exam_id
@@ -90,13 +90,38 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                         { ?>
                         <option value="<?php echo $row['studentId']?>"><?php echo $row['studentName']?></option>
                         <?php } }?>
-                    </select>><br><br>
+                    </select><br><br>
+                    <label>Exam*</label>
+                    <select name="exam" id="exam">
+                        <option value="">Choose student first</option>
+
+                    </select>
 					<p style="margin-top: 0px;float: right;color: red;">* is required to fill</p>
 				</div> 	
 				<br>
 				<button type="submit" class="btn" style="margin-top: 10px;" name="reg_semester">Register</button>	
 		</form>
 	</div>
+    <script>
+        $(document).ready(function(){
+            // On change of the first select
+            $('#student').change(function(){
+                // Get the selected value
+                var selectedValue = $(this).val();
+
+                // Make an AJAX request to the server
+                $.ajax({
+                    type: 'POST',
+                    url: 'get_exam.php', // PHP script to handle the request
+                    data: { selectedValue: selectedValue },
+                    success: function(response){
+                        // Update the content of the second select with the received options
+                        $('#exam').html(response);
+                    }
+                });
+            });
+        });
+    </script>
 	<br><br><br><br>
 <?php
 	if(isset($_POST['reg_semester']))
