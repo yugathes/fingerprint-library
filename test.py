@@ -20,7 +20,8 @@ finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 ip = s.getsockname()[0]
-link = "http://" + ip + "/Fingeprint/"
+#Declare your browser directory here
+link = "http://" + ip + "/Web/"
 errorLink = link + "Admin/StudentEdit.php?errorFlask="
 
 db = pymysql.connect(
