@@ -3,9 +3,21 @@
 	error_reporting(0);
 	$uID = $_GET['userID'];
 	$sID = $_GET['sid'];
+	$eID = $_GET['eid'];
 	$courseID = $_GET['courseID'];
 	$semesterID = $_GET['semesterID'];
-	
+
+	if(isset($eID)){
+		$queryDelete = "DELETE FROM student_has_exam WHERE id = '".$eID."'";
+		$resultDelete = mysqli_query($link,$queryDelete);
+		if (!$resultDelete)
+		{
+			die ("Error: ".mysqli_error($link));
+		}
+		else {
+			header("Location: Enroll.php");
+		}
+	}
 	if(isset($courseID)){
 		$queryDelete = "DELETE FROM course WHERE id = '".$courseID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
