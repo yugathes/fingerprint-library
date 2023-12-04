@@ -24,7 +24,8 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	$queryGet = "SELECT student_has_exam.*, student.name as studentName, exam.name AS examName 
                 FROM student_has_exam 
                 INNER JOIN student ON student_has_exam.student_id = student.id
-                INNER JOIN exam ON student_has_exam.exam_id = exam.id";
+                INNER JOIN exam ON student_has_exam.exam_id = exam.id
+                ORDER BY student.name";
 	$resultGet = mysqli_query($link,$queryGet);
 	if(!$resultGet)
 	{
@@ -46,7 +47,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 				<td><?php echo $row['examName'];?></td>
 				<td><a href="StudentEdit.php?id=<?php echo $row['id'];?>">
 					<img border="0" alt="editB" src="../CSS/btn/editB.png" width="25" height="25"></a>
-					<a href="Delete.php?sid=<?php echo $row['id'];?>" onclick="return confirm('Are you sure?')">
+					<a href="Delete.php?eid=<?php echo $row['id'];?>" onclick="return confirm('Are you sure?')">
 					<img border="0" alt="editB" src="../CSS/btn/delB.png" width="25" height="25"></a></a>
 				</td>
 			</tr>
