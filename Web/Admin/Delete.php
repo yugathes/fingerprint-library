@@ -1,11 +1,23 @@
 <?php
 	include "../Auth/connection.php";
 	error_reporting(0);
-	$uID = $_GET['id'];
+	$uID = $_GET['userID'];
 	$sID = $_GET['sid'];
+	$eID = $_GET['eid'];
 	$courseID = $_GET['courseID'];
 	$semesterID = $_GET['semesterID'];
-	
+
+	if(isset($eID)){
+		$queryDelete = "DELETE FROM student_has_exam WHERE id = '".$eID."'";
+		$resultDelete = mysqli_query($link,$queryDelete);
+		if (!$resultDelete)
+		{
+			die ("Error: ".mysqli_error($link));
+		}
+		else {
+			header("Location: Enroll.php");
+		}
+	}
 	if(isset($courseID)){
 		$queryDelete = "DELETE FROM course WHERE id = '".$courseID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
@@ -29,7 +41,7 @@
 		}
 	}
 	if(isset($uID)){
-		$queryDelete = "DELETE FROM users WHERE username = '".$uID."'";
+		$queryDelete = "DELETE FROM users WHERE id = '".$uID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
 		if (!$resultDelete)
 		{
@@ -40,7 +52,7 @@
 		}
 	}
 	if(isset($sID)){
-		$queryDelete = "DELETE FROM users WHERE uid = '".$sID."'";
+		$queryDelete = "DELETE FROM student WHERE id = '".$sID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
 		if (!$resultDelete)
 		{
@@ -48,7 +60,7 @@
 		}		
 		else {
 			$link = "http://".$ip.":5000/delete?uid=".$sID;
-			header("Location: ".$link."");
+			header("Location: Student.php");
 		}
 	}
 ?>

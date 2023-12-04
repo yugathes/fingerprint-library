@@ -63,9 +63,20 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 <body>
 <?php	
 	$examID = $_GET["id"];
-	$takeAtt = "http://".$ip.":5000/attendance?cID=".$examID;?>
-	<a style="float:right;margin-right:10px;background-color:black;" href="<?php echo $takeAtt?>" class="btn">Add Exam</a><br><br>
-	<h1 align="center">Exam</h1>
+	$takeAtt = "http://".$ip.":5000/attendance?cID=".$examID;
+    $getExamNameQ = "SELECT name FROM exam WHERE id = '".$examID."'";
+    $getExamNameR = mysqli_query($link,$getExamNameQ);
+    if(!$getExamNameR)
+    {
+        die ("Invalid Query - get Items List: ". mysqli_error($link));
+    }
+    else
+    {
+        $getExamNameRow = mysqli_fetch_array($getExamNameR, MYSQLI_BOTH);
+        $getExamName = $getExamNameRow['name'];
+    }?>
+	<a style="float:right;margin-right:10px;background-color:black;" href="<?php echo $takeAtt?>" class="btn">Take Attendance</a><br><br>
+	<h1 align="center">Attendance <br> <?php echo $getExamName;?></h1>
 <?php
     
 	$queryGet = "SELECT
@@ -91,7 +102,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 			<th>Name</th>
 			<th>Attendance</th>
 			<th colspan=2>Attendance Date Time</th>
-			<th>Action</th>
+<!--			<th>Action</th>-->
 		</tr>	 
 		<form>
 <?php	$no=1;
@@ -138,11 +149,11 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 </script>
 				<td><?php echo $date?></td>
 				<td><?php echo $time?></td>
-				<td><a href="ExamEdit.php?id=<?php echo $row['id'];?>">
-					<img border="0" alt="editB" src="../CSS/btn/editB.png" width="25" height="25"></a>
-					<a href="Delete.php?examID=<?php echo $row['id'];?>" onclick="return confirm('Are you sure?')">
-					<img border="0" alt="editB" src="../CSS/btn/delB.png" width="25" height="25"></a></a>
-				</td>
+<!--				<td><a href="ExamEdit.php?id=--><?php //echo $row['id'];?><!--">-->
+<!--					<img border="0" alt="editB" src="../CSS/btn/editB.png" width="25" height="25"></a>-->
+<!--					<a href="Delete.php?examID=--><?php //echo $row['id'];?><!--" onclick="return confirm('Are you sure?')">-->
+<!--					<img border="0" alt="editB" src="../CSS/btn/delB.png" width="25" height="25"></a></a>-->
+<!--				</td>-->
 			</tr>
 		<?php	$no++;}}
 		else{
