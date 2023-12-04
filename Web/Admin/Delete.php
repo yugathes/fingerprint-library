@@ -1,7 +1,7 @@
 <?php
 	include "../Auth/connection.php";
 	error_reporting(0);
-	$uID = $_GET['id'];
+	$uID = $_GET['userID'];
 	$sID = $_GET['sid'];
 	$courseID = $_GET['courseID'];
 	$semesterID = $_GET['semesterID'];
@@ -29,7 +29,7 @@
 		}
 	}
 	if(isset($uID)){
-		$queryDelete = "DELETE FROM users WHERE username = '".$uID."'";
+		$queryDelete = "DELETE FROM users WHERE id = '".$uID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
 		if (!$resultDelete)
 		{
