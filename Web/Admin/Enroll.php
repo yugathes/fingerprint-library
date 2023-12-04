@@ -45,8 +45,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 			<tr>
 				<td><?php echo $row['studentName']?></td>
 				<td><?php echo $row['examName'];?></td>
-				<td><a href="StudentEdit.php?id=<?php echo $row['id'];?>">
-					<img border="0" alt="editB" src="../CSS/btn/editB.png" width="25" height="25"></a>
+				<td>
 					<a href="Delete.php?eid=<?php echo $row['id'];?>" onclick="return confirm('Are you sure?')">
 					<img border="0" alt="editB" src="../CSS/btn/delB.png" width="25" height="25"></a></a>
 				</td>
