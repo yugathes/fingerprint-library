@@ -40,7 +40,7 @@
 		}
 	}
 	if(isset($sID)){
-		$queryDelete = "DELETE FROM users WHERE uid = '".$sID."'";
+		$queryDelete = "DELETE FROM student WHERE id = '".$sID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
 		if (!$resultDelete)
 		{
@@ -48,7 +48,7 @@
 		}		
 		else {
 			$link = "http://".$ip.":5000/delete?uid=".$sID;
-			header("Location: ".$link."");
+			header("Location: Student.php");
 		}
 	}
 ?>
