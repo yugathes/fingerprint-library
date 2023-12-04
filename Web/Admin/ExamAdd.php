@@ -77,6 +77,8 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 				<div class="input-group2">
 					<label>Subject Name*</label>
 					<input type="text" name="name" required><br><br>
+					<label>Date & Time</label>
+					<input type="datetime-local" name="datetime"><br><br>
 					<p style="margin-top: 0px;float: right;color: red;">* is required to fill</p>
 				</div> 	
 				<br>
@@ -88,9 +90,10 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	if(isset($_POST['reg_subject']))
 	{
 		$name = $_POST['name'];
+		$datetime = $_POST['datetime'];
 		
-		$sql = "INSERT INTO exam (name) 
-				values ('".$name."')";
+		$sql = "INSERT INTO exam (name, datetime) 
+				values ('".$name."', '".$datetime."')";
 		$result = mysqli_query($link, $sql);
 		if (!$result)
 		{
