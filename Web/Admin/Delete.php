@@ -6,7 +6,19 @@
 	$eID = $_GET['eid'];
 	$courseID = $_GET['courseID'];
 	$semesterID = $_GET['semesterID'];
+        $examID = $_GET['examID'];
 
+        if(isset($examID)){
+		$queryDelete = "DELETE FROM exams WHERE id = '".$examID."'";
+		$resultDelete = mysqli_query($link,$queryDelete);
+		if (!$resultDelete)
+		{
+			die ("Error: ".mysqli_error($link));
+		}
+		else {
+			header("Location: Exam.php");
+		}
+	}
 	if(isset($eID)){
 		$queryDelete = "DELETE FROM student_has_exam WHERE id = '".$eID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
