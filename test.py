@@ -192,7 +192,7 @@ def attendance():
         while True:
             if get_fingerprint():
                 #print("Detected #", finger.finger_id, "with confidence", finger.confidence)
-                if(finger.confidence >150):
+                if(finger.confidence >100):
                     name = finger.finger_id
                     print(name)
                     cursor = db.cursor()
