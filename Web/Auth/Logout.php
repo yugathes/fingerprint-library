@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION["username"]))
+if (isset($_SESSION["userId"]))
 	{
 		session_destroy();
 		echo "You have successfully logged out.";
