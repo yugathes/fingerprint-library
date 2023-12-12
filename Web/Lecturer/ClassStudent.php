@@ -3,7 +3,7 @@
 session_start();
 
 //if session exists
-if(isset ($_SESSION["username"])) //session userid gets value from text field named userid, shown in user.php
+if(isset ($_SESSION["userId"])) //session userid gets value from text field named userid, shown in user.php
 {	include "Header.php";?>
 <!DOCTYPE html>
 <html>
