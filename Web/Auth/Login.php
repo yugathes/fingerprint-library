@@ -15,7 +15,6 @@
 						<input type="text" placeholder="Staff ID" name = "staffId"/></br></br>
 						<input type="password" placeholder="Password" name = "password"/></br></br>
 						<button type="submit" class="btn" name="login_user">Login</button>
-						<p>Don't have an account? <a href="../index.html">Register</a> </p>
 					</div> 
 			</form>
 			</div>
