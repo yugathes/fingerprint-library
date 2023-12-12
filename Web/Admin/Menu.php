@@ -60,17 +60,18 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 <body>
 <?php
 
-	$lecturerQ = "select * from users where type_user='Lecturer'";	
+	$lecturerQ = "select * from users where type_user='Lecturer'";
 	$lecturerR = mysqli_query($link,$lecturerQ);
 	$lecturer = mysqli_num_rows($lecturerR);
-	$studentQ = "select * from users where type_user='Student'";	
+	$studentQ = "select * from student";
 	$studentR = mysqli_query($link,$studentQ);
 	$student = mysqli_num_rows($studentR);
-	$faceQ = "select * from users where fingerprint='1'";	
+	$faceQ = "select * from student where enrol_fingerprint='1'";
 	$faceR = mysqli_query($link,$faceQ);
 	$face = mysqli_num_rows($faceR);
 	?>
-	<h1 align="center"> Statistics </h1>
+	<h1 align="center">Welcome to UNITEN Exam Attendance System </h1>
+
 	<div class="row">
 		<div class="column">
 			<div class="card">
