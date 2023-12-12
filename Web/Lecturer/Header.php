@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../CSS/topNav.css">
 	<div class="topnav">
         <a <?php if (basename($_SERVER['PHP_SELF']) == "Menu.php") echo "class='active'"?> href="Menu.php">Menu</a>
-		<a <?php if (basename($_SERVER['PHP_SELF']) == "Attendance.php") echo "class='active'"?>href="Attendance.php">Attendance</a>
+		<a <?php if (basename($_SERVER['PHP_SELF']) == "Attendance.php" || basename($_SERVER['PHP_SELF']) == "AttendanceView.php") echo "class='active'"?>href="Attendance.php">Attendance</a>
 	</div>
 	<div class="auth">
 <?php if(isset ($_SESSION["userId"])) //session userid gets value from text field named userid, shown in user.php
