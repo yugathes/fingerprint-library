@@ -29,7 +29,7 @@ if(isset ($_SESSION["userId"])) //call this function to check if session exists 
 					<div class="input-group">
 						<label>Staff ID</label>
 						<input type="text" name="staffId" value="<?php echo $baris['staffId']; ?>" disabled><br><br>
-						<input type="hidden" name="staffId" value="<?php echo $baris['staffId']; ?>"><br><br>
+						<input type="hidden" name="staffId" value="<?php echo $baris['staffId']; ?>">
 						<input type="hidden" name="id" value="<?php echo $baris['id']; ?>">
 						<label>Name</label>
 						<input type="text" name="name" value="<?php echo $baris['name'] ?>"><br><br>
