@@ -19,14 +19,26 @@
 			die ("Error: ".mysqli_error($link));
 		}		
 		else {
-			echo '<script type="text/javascript">
-					window.onload = function () 
-					{ 
+            if(isset($_POST['redirect']))
+            {
+//                echo $_POST['redirect'];
+                echo '<script type="text/javascript">
+					window.onload = function ()
+					{
+					alert("Staff Detail has been Updated...");
+					open("../Lecturer/Menu.php","_top");
+					}
+					</script>';
+            }
+            else{
+                echo '<script type="text/javascript">
+					window.onload = function ()
+					{
 					alert("Staff Detail has been Updated...");
 					open("Lecturer.php","_top");
 					}
 					</script>';
-
+            }
 		}
 	}
 	if(isset($_POST['semester'])){
