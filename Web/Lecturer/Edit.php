@@ -1,7 +1,7 @@
 <?php
 session_start();
 //if session exists
-if(isset ($_SESSION["username"])) //call this function to check if session exists or not
+if(isset ($_SESSION["userId"])) //call this function to check if session exists or not
 {
 	include "Header.php";?>
 <!DOCTYPE html>
