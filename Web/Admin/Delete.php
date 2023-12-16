@@ -9,7 +9,7 @@
         $examID = $_GET['examID'];
 
         if(isset($examID)){
-		echo $examID;
+//		echo $examID;
 		$queryDelete = "DELETE FROM exam WHERE id = '".$examID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
 		if (!$resultDelete)
