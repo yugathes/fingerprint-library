@@ -199,12 +199,11 @@ def attendance():
                     cursor = db.cursor()
                     sql2 = "SELECT student_has_exam.*, student.name FROM student_has_exam INNER JOIN student ON student.id = student_has_exam.student_id WHERE student_has_exam.student_id = '%d' AND student_has_exam.exam_id = '%d'" % (name, classID)
                     try:
-                        print(sql2)
                         cursor.execute(sql2)
                         if(cursor.rowcount>0):
                             row = cursor.fetchone()
                             sql = "UPDATE student_has_exam SET attendance = 1, attendance_date_time = '%s' WHERE id = '%d'" % (date, row[0])
-                            print("Attended :",sql)
+                            print("Attended :",row[0])
                             try:
                                 cursor.execute(sql)
                                 print(cursor.rowcount, "record(s) affected")
