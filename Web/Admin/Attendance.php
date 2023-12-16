@@ -195,7 +195,6 @@ input[type=text] {
 </head>
 
 <body>
-<a style="float:right;margin-right:10px" href="EnrollAdd.php" class="btn">Enroll</a><br><br>
 <?php
 $queryGet = "SELECT
     e.id AS exam_id,
