@@ -1,6 +1,6 @@
 <?php
 	include "../Auth/connection.php";
-	error_reporting(0);
+	error_reporting(1);
 	$uID = $_GET['userID'];
 	$sID = $_GET['sid'];
 	$eID = $_GET['eid'];
@@ -9,7 +9,6 @@
         $examID = $_GET['examID'];
 
         if(isset($examID)){
-//		echo $examID;
 		$queryDelete = "DELETE FROM exam WHERE id = '".$examID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
 		if (!$resultDelete)
@@ -37,7 +36,7 @@
 		if (!$resultDelete)
 		{
 			die ("Error: ".mysqli_error($link));
-		}		
+		}
 		else {
 			header("Location: Management.php");
 		}
@@ -66,14 +65,17 @@
 	}
 	if(isset($sID)){
 		$queryDelete = "DELETE FROM student WHERE id = '".$sID."'";
+		$queryFKDelete = "DELETE FROM student_has_exam WHERE student_id = '".$sID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
+		$resultFKDelte = mysqli_query($link,$queryFKDelete);
 		if (!$resultDelete)
 		{
 			die ("Error: ".mysqli_error($link));
 		}		
 		else {
 			$link = "http://".$ip.":5000/delete?uid=".$sID;
-			header("Location: Student.php");
+			echo $link;
+			header("Location: $link");
 		}
 	}
 ?>
