@@ -29,7 +29,7 @@ if(isset($_GET['errorFlask'])){
 	window.onload = function () 
 	{ 
 	alert("'.$error.'");
-	open("Menu.php","_top");
+	open("Student.php","_top");
 	}
 	</script>';
 }?>
