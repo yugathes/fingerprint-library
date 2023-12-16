@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 28, 2023 at 12:13 PM
+-- Generation Time: Dec 16, 2023 at 09:21 AM
 -- Server version: 10.11.3-MariaDB-1+rpi1
 -- PHP Version: 8.2.7
 
@@ -62,9 +62,7 @@ CREATE TABLE `exam` (
 
 INSERT INTO `exam` (`id`, `name`, `datetime`) VALUES
 (1, 'System Analysis Design', '2023-12-20 09:00:00'),
-(2, 'Computer Forensic', '2023-12-09 21:00:00'),
-(3, 'Nasim Oneill', '2009-02-09 23:14:00'),
-(4, 'Cisco2', '2023-12-07 09:13:00');
+(2, 'Computer Forensic', '2023-12-09 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -83,8 +81,7 @@ CREATE TABLE `semester` (
 
 INSERT INTO `semester` (`id`, `name`) VALUES
 (2, 'Semester 1 (2023/2024)'),
-(3, 'Semester 2 (2023/2024)'),
-(4, 'Semester 3 (2023/2024)	');
+(3, 'Semester 2 (2023/2024)');
 
 -- --------------------------------------------------------
 
@@ -112,8 +109,7 @@ INSERT INTO `student` (`id`, `name`, `ic_no`, `student_id`, `email`, `enrol_fing
 (2, 'Adrienne Jarvis', 'Quos et magna volupt', 'SG0193814', 'tuwy@mailinator.com', 1, 7, 3),
 (3, 'Pavenarsh A/L Arichanthiran', '011012-11-1656', 'CS0106373', 'pave1@gmail.com', 1, 8, 3),
 (4, 'Andrew Norman', '990121037823', 'SN0107382', 'renik@mailinator.com', 1, 8, 2),
-(5, 'Ted Bryan', '871173-10-2832', 'CS0137338', 'bryan@yahoo.com', 0, 5, 4),
-(6, 'Fatira', '5267265-19-3833', 'CS0164738', 'fat@gmail.com', 0, 7, 3);
+(9, 'test', '0222222-10-1829', 'CS0101010', 'test@gmail.com', 1, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -134,11 +130,9 @@ CREATE TABLE `student_has_exam` (
 --
 
 INSERT INTO `student_has_exam` (`id`, `student_id`, `exam_id`, `attendance`, `attendance_date_time`) VALUES
-(2, 1, 1, 1, '2023-11-26 23:50:08'),
 (3, 2, 1, 1, '2023-11-26 23:50:08'),
 (4, 1, 2, 1, '2023-11-26 23:52:28'),
-(5, 3, 1, 0, NULL),
-(6, 3, 2, 0, NULL);
+(5, 3, 1, 1, '2023-12-16 16:48:11');
 
 -- --------------------------------------------------------
 
@@ -164,8 +158,7 @@ INSERT INTO `users` (`id`, `staffId`, `password`, `name`, `email`, `type_user`) 
 (2, 'ST0128385', 'Pa$$w0rd!', 'Kitra Vazquez', 'jyqozaju@mailinator.com', 'Lecturer'),
 (3, 'ST01283812', 'Pa$$w0rd!', 'Zorita Hoppers', 'lihar@mailinator.com', 'Lecturer'),
 (4, 'ST0127839', '123', 'Marina', 'marina@uniten.edu.my', 'Lecturer'),
-(5, 'Admin2', '123', 'Admin2', 'admin@test.com', 'Admin'),
-(6, 'MC220919', 'asdf', 'Anushinee', 'anu@gmail.com', 'Admin');
+(5, 'Admin2', '123', 'Admin2', 'admin@test.com', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -220,37 +213,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `exam`
 --
 ALTER TABLE `exam`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `semester`
 --
 ALTER TABLE `semester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `student_has_exam`
 --
 ALTER TABLE `student_has_exam`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -260,15 +253,15 @@ ALTER TABLE `users`
 -- Constraints for table `student`
 --
 ALTER TABLE `student`
-  ADD CONSTRAINT `fk_course_id` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
-  ADD CONSTRAINT `fk_semester_id` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`id`);
+  ADD CONSTRAINT `fk_course_id` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_semester_id` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `student_has_exam`
 --
 ALTER TABLE `student_has_exam`
-  ADD CONSTRAINT `fk_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`),
-  ADD CONSTRAINT `fk_student_id` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
+  ADD CONSTRAINT `fk_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_student_id` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
