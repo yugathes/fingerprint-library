@@ -21,7 +21,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 ip = s.getsockname()[0]
 #Declare your browser directory here
-link = "http://" + ip + "/Web/"
+link = "http://" + ip + "/Fingerprint/"
 errorLink = link + "Admin/StudentEdit.php?errorFlask="
 
 db = pymysql.connect(
