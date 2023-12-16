@@ -66,16 +66,21 @@
 	if(isset($sID)){
 		$queryDelete = "DELETE FROM student WHERE id = '".$sID."'";
 		$queryFKDelete = "DELETE FROM student_has_exam WHERE student_id = '".$sID."'";
-		$resultDelete = mysqli_query($link,$queryDelete);
 		$resultFKDelte = mysqli_query($link,$queryFKDelete);
-		if (!$resultDelete)
+		if (!$resultFKDelete)
 		{
 			die ("Error: ".mysqli_error($link));
 		}		
 		else {
-			$link = "http://".$ip.":5000/delete?uid=".$sID;
-			echo $link;
-			header("Location: $link");
+			$resultDelete = mysqli_query($link,$queryDelete);
+			if (!$resultFKDelete)
+			{
+				die ("Error: ".mysqli_error($link));
+			}		
+			else {
+				$link = "http://".$ip.":5000/delete?uid=".$sID;
+				header("Location: $link");
+			}
 		}
 	}
 ?>
