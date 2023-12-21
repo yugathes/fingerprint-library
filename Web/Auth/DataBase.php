@@ -24,7 +24,7 @@ if (isset($_POST['login_user'])) {
 
   if (count($errors) == 0) {
   	  	//encrypt the password before saving in the database$password = md5($password)
-  	$query = "SELECT * FROM users WHERE staffId='$staffId' AND password='$password'";
+  	$query = "SELECT * FROM users WHERE local_id='$staffId' AND password='$password'";
   	$results = mysqli_query($ds, $query);
   	if (mysqli_num_rows($results) == TRUE) 
 	{

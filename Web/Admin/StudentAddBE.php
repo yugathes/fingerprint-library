@@ -4,12 +4,13 @@ include "../Auth/connection.php";
 if (isset($_POST['studentAdd'])) {
     $name = $_POST['name'];
     $student_id = $_POST['student_id'];
-    $ic_no = $_POST['ic_no'];
+    $password = 123;
     $email = $_POST['email'];
+    $type_user = $_POST['type_user'];
     $enrol_fingerprint = 0;
 
-    $sql = "INSERT INTO student (name, student_id, ic_no, email, enrol_fingerprint) 
-				values ('" . $name . "', '" . $student_id . "', '" . $ic_no . "', '" . $email . "', '" . $enrol_fingerprint . "')";
+    $sql = "INSERT INTO users (name, local_id, password, email, fingerprint, type_user) 
+				values ('" . $name . "', '" . $student_id . "', '" . $password . "','".$email."', '" . $enrol_fingerprint . "', '".$type_user."')";
     $result = mysqli_query($link, $sql);
     if (!$result) {
         $fail = "Please Check Registration.";
@@ -18,9 +19,10 @@ if (isset($_POST['studentAdd'])) {
 			</script>";
         die("Error:" . mysqli_error($link));
     } else {
+        $last_id = mysqli_insert_id($link);
         $success = "Registration Success.";
         $_SESSION['notification'] = $success.', '.$name;
-        header("Location: Student.php");
+        header("Location: UsersEdit.php?id=".$last_id);
         exit();
     }
 }

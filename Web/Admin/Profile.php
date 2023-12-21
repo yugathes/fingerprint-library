@@ -31,10 +31,15 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	window.onload = function () 
 	{ 
 	alert("'.$error.'");
-	open("Student.php","_top");
+	open("Profile.php","_top");
 	}
 	</script>';
-    }?>
+    }
+    if (isset($_SESSION['notification'])) {
+        $notification = $_SESSION['notification'];
+        unset($_SESSION['notification']); // Clear the notification after displaying it
+    }
+    ?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -43,13 +48,21 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
     <main class="main-content position-relative border-radius-lg ">
         <?php include "navbar.php";?>
         <div class="container-fluid py-4">
+            <?php if (isset($notification)): ?>
+                <div class="alert alert-success alert-dismissible fade show ml-auto alert-sm" role="alert">
+                    <?php echo $notification; ?>
+                    <button type="button" class="btn-close btn-close-white" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php endif; ?>
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
 <?php
-	$pID = $_GET["id"];
-	$queryGet = "select * from student where id='".$pID."'";
+//	$pID = $_GET["id"];
+	$queryGet = "select * from users where id='".$_SESSION["userId"]."'";
 
 	$resultGet = mysqli_query($link,$queryGet);
 
@@ -59,10 +72,10 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	}
 	else
 	{?>
-                            <h6>Student Info</h6>
+                            <h6>User Info</h6>
                         </div>
                         <div class="card-body">
-                            <p class="text-uppercase text-sm">Student Information</p>
+                            <p class="text-uppercase text-sm">User Information</p>
                             <form action="StudentUpdate.php" name="EditForm" method="POST">
                             <?php	while($baris= mysqli_fetch_array($resultGet, MYSQLI_BOTH))	{?>
                             <div class="row">
@@ -73,6 +86,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                                     </div>
                                 </div>
                                 <input type="hidden" name="id" value="<?php echo $baris['id']; ?>">
+                                <input type="hidden" name="redirect" value="profile">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Email address</label>
@@ -81,14 +95,14 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Student ID</label>
-                                        <input class="form-control" type="text" name="student_id" pattern="^[A-Z][A-Z]0[01]\d{5}$" value="<?php echo $baris['student_id'] ?>">
+                                        <label for="example-text-input" class="form-control-label">Staff/Student ID</label>
+                                        <input class="form-control" type="text" name="student_id" value="<?php echo $baris['local_id'] ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">IC No</label>
-                                        <input class="form-control" type="text" name="ic_no" value="<?php echo $baris['ic_no'] ?>">
+                                        <label for="example-text-input" class="form-control-label">Password</label>
+                                        <input class="form-control" type="text" name="password" value="<?php echo $baris['password'] ?>">
                                     </div>
                                 </div>
                             </div>
@@ -98,12 +112,12 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Fingerprint Enrollment</label>
-                                        <?php if($baris['enrol_fingerprint']==0) {?>
+                                        <?php if($baris['fingerprint']==0) {?>
                                             <?php	$link = "http://".$ip.":5000/enroll?uid=".$baris['id'];?>
                                            <a class="form-control btn btn-primary btn-sm ms-auto text-uppercase text-lg" href="<?php echo $link;?>">
                                                     Enroll
                                             </a><?php	}
-                                         else if($baris['enrol_fingerprint']==1){	?>
+                                         else if($baris['fingerprint']==1){	?>
                                             <input class="form-control text-uppercase text-lg-center text-success font-weight-bold" type="text" name="enrollment" value="Enrolled" >
                                         <?php	}	else{}?>
                                     </div>
@@ -111,7 +125,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                             </div>
                             <hr class="horizontal light">
                             <div class="row">
-                                <button type="submit" class="btn btn-primary btn-lg ms-auto" name="staff">Edit</button>
+                                <button type="submit" class="btn btn-primary btn-lg ms-auto" name="profile">Update</button>
                             </div>
 
                             <?php	}?>

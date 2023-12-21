@@ -48,11 +48,11 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
-                            <h6>Student Registration</h6>
+                            <h6>Users Registration</h6>
                         </div>
                         <div class="card-body">
                             <form style="position: relative; width: 60%; margin:auto;left:0" action="StudentAddBE.php" name="EditForm" method="POST">
-                            <p class="text-uppercase text-sm">Student Information</p>
+                            <p class="text-uppercase text-sm">User Information</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -68,14 +68,19 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Student ID</label>
+                                        <label for="example-text-input" class="form-control-label">Staff/Student ID</label>
                                         <input class="form-control" type="text" name="student_id"> <!--pattern="^[A-Z][A-Z]0[01]\d{5}$"-->
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">IC No</label>
-                                        <input class="form-control" type="text" name="ic_no">
+                                        <label for="example-text-input" class="form-control-label">Role</label>
+                                        <select name="type_user" class="form-control">
+                                            <option value=""></option>
+                                            <option value="Lecturer">Lecturer</option>
+                                            <option value="Student">Student</option>
+                                            <option value="Admin">Admin</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

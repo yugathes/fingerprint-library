@@ -1,14 +1,11 @@
 <?php
 	include "../Auth/connection.php";
 	error_reporting(1);
-	$uID = $_GET['userID'];
+	$uID = $_GET['uid'];
 	$sID = $_GET['sid'];
 	$eID = $_GET['eid'];
-	$courseID = $_GET['courseID'];
-	$semesterID = $_GET['semesterID'];
-        $examID = $_GET['examID'];
 
-        if(isset($examID)){
+	if(isset($examID)){
 		$queryDelete = "DELETE FROM exam WHERE id = '".$examID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
 		if (!$resultDelete)
@@ -30,29 +27,9 @@
 			header("Location: Enroll.php");
 		}
 	}
-	if(isset($courseID)){
-		$queryDelete = "DELETE FROM course WHERE id = '".$courseID."'";
-		$resultDelete = mysqli_query($link,$queryDelete);
-		if (!$resultDelete)
-		{
-			die ("Error: ".mysqli_error($link));
-		}
-		else {
-			header("Location: Management.php");
-		}
-	}
-	if(isset($semesterID)){
-		$queryDelete = "DELETE FROM semester WHERE id = '".$semesterID."'";
-		$resultDelete = mysqli_query($link,$queryDelete);
-		if (!$resultDelete)
-		{
-			die ("Error: ".mysqli_error($link));
-		}		
-		else {
-			header("Location: Management.php");
-		}
-	}
+
 	if(isset($uID)){
+		echo $uID;
 		$queryDelete = "DELETE FROM users WHERE id = '".$uID."'";
 		$resultDelete = mysqli_query($link,$queryDelete);
 		if (!$resultDelete)
@@ -60,7 +37,7 @@
 			die ("Error: ".mysqli_error($link));
 		}		
 		else {
-			header("Location: Lecturer.php");
+			header("Location: Users.php");
 		}
 	}
 	if(isset($sID)){

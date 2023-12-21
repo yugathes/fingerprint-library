@@ -2,8 +2,8 @@
 <head>
     <meta charset="utf-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/icons/favicon.ico">
+    <link rel="icon" type="image/ico" href="../assets/img/icons/favicon.ico">
     <title>
         UNITEN Library Attendance
     </title>
@@ -33,7 +33,7 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="Menu.php" target="_blank">
-            <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+            <img src="../assets/img/small-logos/uniten-logo.png" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold">UNITEN Library Attendance</span>
         </a>
     </div>
@@ -49,11 +49,27 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "Student.php") echo "active";?>" href="Student.php">
+                <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "Users.php") echo "active";?>" href="Users.php">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Students</span>
+                    <span class="nav-link-text ms-1">Users</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "AddUser.php") echo "active";?>" href="AddUser.php">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni ni-hat-3 text-alert text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Add Users</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "AddUser.php") echo "active";?>" href="AddUser.php">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni ni-hat-3 text-alert text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">View Attendance</span>
                 </a>
             </li>
 
@@ -61,7 +77,7 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="../pages/profile.html">
+                <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "Profile.php") echo "active";?>" href="Profile.php">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
                     </div>
