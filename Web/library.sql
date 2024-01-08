@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.0.4deb2+deb11u1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 21, 2023 at 02:31 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Host: localhost:3306
+-- Generation Time: Jan 08, 2024 at 09:01 PM
+-- Server version: 10.5.21-MariaDB-0+deb11u1
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,22 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `attendance` (
   `id` int(9) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `exam_id` int(11) NOT NULL,
-  `attendance` int(11) NOT NULL,
-  `attendance_date_time` datetime DEFAULT NULL
+  `user_id` int(9) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`id`, `student_id`, `exam_id`, `attendance`, `attendance_date_time`) VALUES
-(2, 1, 1, 1, '2023-11-26 23:50:08'),
-(3, 2, 1, 1, '2023-11-26 23:50:08'),
-(4, 1, 2, 1, '2023-11-26 23:52:28'),
-(5, 3, 1, 0, NULL),
-(6, 3, 2, 0, NULL);
+INSERT INTO `attendance` (`id`, `user_id`, `date`, `time`) VALUES
+(10, 2, '2024-01-08', '20:52:18');
 
 -- --------------------------------------------------------
 
@@ -67,10 +62,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `local_id`, `password`, `name`, `email`, `fingerprint`, `type_user`) VALUES
-(1, 'Admin', '123', 'Test Admin', 'admin@test.com', 0, 'Admin'),
+(1, 'Admin', '123', 'Test Admin', 'admin@test.com', 1, 'Admin'),
 (2, 'ST0128385', 'Pa$$w0rd!', 'Kitra Vazquez', 'jyqozaju@mailinator.com', 0, 'Lecturer'),
 (3, 'ST01283812', 'Pa$$w0rd!', 'Zorita Hoppers', 'lihar@mailinator.com', 0, 'Lecturer'),
-(6, 'MC220919', '123', 'Anushinee', 'anu@gmail.com', 0, 'Admin'),
+(6, 'MC220919', '123', 'Anushinee', 'anu@gmail.com', 1, 'Admin'),
 (11, '123', '123', 'Beverly Holland', 'birawucufi@mailinator.com0', 0, 'Admin'),
 (12, 'AD1234', 'abcd1234', 'Deacon Carney', 'tejyrefar@mailinator.com', 0, 'Admin'),
 (13, 'Nulla pariatur Quis', '123', 'Yen Hensley', 'nomir@mailinator.com0', 0, 'Student'),
@@ -86,9 +81,7 @@ INSERT INTO `users` (`id`, `local_id`, `password`, `name`, `email`, `fingerprint
 -- Indexes for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_student_id` (`student_id`),
-  ADD KEY `fk_exam_id` (`exam_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -104,24 +97,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `attendance`
---
-ALTER TABLE `attendance`
-  ADD CONSTRAINT `fk_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`),
-  ADD CONSTRAINT `fk_student_id` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
