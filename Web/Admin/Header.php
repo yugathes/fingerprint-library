@@ -43,7 +43,7 @@
             <li class="nav-item">
                 <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "Menu.php") echo "active";?>" href="Menu.php">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                        <i class="ni ni-tv-2 text-alert text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
@@ -51,7 +51,7 @@
             <li class="nav-item">
                 <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "Users.php") echo "active";?>" href="Users.php">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+                        <i class="ni ni-user-run text-alert text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Users</span>
                 </a>
@@ -65,9 +65,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "AddUser.php") echo "active";?>" href="AddUser.php">
+                <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "Attendance.php") echo "active";?>" href="Attendance.php">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni ni-hat-3 text-alert text-sm opacity-10"></i>
+                        <i class="ni ni-calendar-grid-58 text-alert text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">View Attendance</span>
                 </a>
@@ -79,7 +79,7 @@
             <li class="nav-item">
                 <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == "Profile.php") echo "active";?>" href="Profile.php">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                        <i class="ni ni-single-02 text-alert text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
