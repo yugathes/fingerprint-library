@@ -14,7 +14,8 @@ import socket
 #Variable Declaration
 app = Flask(__name__, template_folder='../Fingerprint') #Server Declaration
 # display = lcddriver.Lcd()
-uart = serial.Serial("/dev/ttyUSB0", baudrate=57600, timeout=1)
+#uart = serial.Serial("/dev/ttyUSB0", baudrate=57600, timeout=1)
+uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
 finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -22,13 +23,13 @@ s.connect(("8.8.8.8", 80))
 ip = s.getsockname()[0]
 #Declare your browser directory here
 link = "http://" + ip + "/Fingerprint/"
-errorLink = link + "Admin/StudentEdit.php?errorFlask="
+errorLink = link + "Admin/UsersEdit.php?errorFlask="
 
 db = pymysql.connect(
         host='localhost',
         user='root',
         password='sudo',
-        db='attendance2')
+        db='library')
 
 
 # display.lcd_display_string("Welcome ", 1)
@@ -132,7 +133,7 @@ def enroll():
         
         try:
             # Execute the SQL command
-            cursor.execute("UPDATE student SET enrol_fingerprint =1 WHERE id=%d" % location)
+            cursor.execute("UPDATE users SET fingerprint =1 WHERE id=%d" % location)
             
             print(cursor.rowcount, "Default record(s) updated")
             # Commit your changes in the database
@@ -157,7 +158,7 @@ def enroll():
         #return False
     #display.lcd_clear()
     #display.lcd_display_string("Capture Success ", 1)
-    return redirect(link + "Admin/Student.php")
+    return redirect(link + "Admin/Users.php")
 
 def get_fingerprint():
     """Get a finger print image, template it, and see if it matches!"""
