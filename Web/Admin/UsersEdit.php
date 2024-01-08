@@ -31,7 +31,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 	window.onload = function () 
 	{ 
 	alert("'.$error.'");
-	open("Student.php","_top");
+	open("Users.php","_top");
 	}
 	</script>';
     }?>
