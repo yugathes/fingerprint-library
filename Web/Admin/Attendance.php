@@ -1,270 +1,98 @@
 <?php
+//call this function to check if session exists or not
 session_start();
+
 //if session exists
-if(isset ($_SESSION["userId"])) //call this function to check if session exists or not
-{
-	include "Header.php";
-	$user = $_SESSION['userId'];
-	?>
-<!DOCTYPE html>
-<html>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<style>
-  .output{display:none}
-  .output2{display:none}
-.row {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-  margin: 0 0px;
-}
+if(isset ($_SESSION["userId"])) //session userid gets value from text field named userid, shown in user.php
+{	include "Header.php";
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
 
-.col-25 {
-  -ms-flex: 25%; /* IE10 */
-  flex: 30%;
-}
+    <body class="g-sidenav-show dark-version bg-gray-100">
 
-.col-50 {
-  -ms-flex: 50%; /* IE10 */
-  flex: 50%;
-}
-
-.col-75 {
-  -ms-flex: 75%; /* IE10 */
-  flex: 70%;
-}
-
-.col-25,
-.col-50,
-.col-75 {
-  padding: 0 16px;
-}
-
-.container {
-  background-color: #f2f2f2;
-  padding: 5px 20px 15px 20px;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-}
-
-input[type=date] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-input[type=text] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-select {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-label {
-  margin-bottom: 10px;
-  display: block;
-}
-
-.icon-container {
-  margin-bottom: 20px;
-  padding: 7px 0;
-  font-size: 24px;
-}
-
-span.price {
-  float: right;
-  color: grey;
-}
-
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
-@media (max-width: 800px) {
-  .row {
-    flex-direction: column-reverse;
-  }
-  .col-25 {
-    margin-bottom: 20px;
-  }
-}
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-	top: -70px;
-    left: 150px;
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-}
-.tooltip .tooltiptext img{
-	width: 120px;
-	height:120px;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
-.mid{
-	margin: auto;
-	width: 50%;
-	padding: 10px;
-	
-}
-.content2 {
-	margin: auto;
-	width: 100%;
-	padding: 20px;
-	border: 1px solid #483235;
-	background: white;
-	border-radius: 10px 10px 10px 10px;
-}
-.input-group2 {
-  margin: 10px 0px 10px 0px;
-}
-.input-group2 label {
-	display: inline;  
-    margin-bottom: 10px;
-	text-align: left;
-	margin: 3px;
-}
-
-.input-group2 textarea {
-	display: inline;
-	float: right;
-	width: 50%;
-	padding: 5px 10px;
-	font-size: 16px;
-	border-radius: 5px;
-	border: 1px solid gray;
-}
-.input-group2 select {
-	display: inline;
-	float: right;
-	width: 50%;
-	padding: 5px 10px;
-	font-size: 16px;
-	border-radius: 5px;
-	border: 1px solid gray;
-	margin-bottom: 0px;
-}
-input[type=text] {
-	margin-bottom: 0px;
-}
-.content button{
-	display: block;
-	float: right;	
-}
-.txt-center {
-	text-align: center;
-	display: inline;
-    left: 50%;
-    position: absolute;
-}
-.btn-take{
-	padding: 8px;
-    background: green;
-    color: black;
-	text-decoration: solid;
-}
-.btn-view{
-	padding: 8px;
-    background: blue;
-    color: white;
-	text-decoration: solid;
-}
-</style>
-</head>
-
-<body>
+    <main class="main-content position-relative border-radius-lg ">
+        <?php include "navbar.php";?>
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <div class="d-flex align-items-center">
+                                <h6>Attendance table</h6>
+<!--                               TODO: Search-->
+                            </div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
 <?php
-$queryGet = "SELECT
-    e.id AS exam_id,
-    e.name AS exam_name,
-    e.datetime AS datetime,
-    COUNT(she.student_id) AS num_stud,
-    SUM(she.attendance) AS total_attendance
-FROM
-    exam e
-LEFT JOIN
-    student_has_exam she ON e.id = she.exam_id
-GROUP BY
-    e.id, e.name;";	
-$resultGet = mysqli_query($link,$queryGet);
-if(!$resultGet)
-{	die ("Invalid Query - get Items List: ". mysqli_error($link));	}
-else{	?>
-	<center><h3>Attendance List</h3></center>
-	<table id="table" border="1" align="center">
-		<tr>
-			<th>No</th>
-			<th>Exam</th>
-			<th colspan=2>Date & Time</th>
-			<th>No Students</th>
-			<th>Attendented Students</th>
-			<th>Action</th>
-		</tr>
-<?php				if(mysqli_num_rows($resultGet)<=0){	?>
-		<tr>
-			<td colspan="4">No Student Registered</td>
-		</tr><?php	}
-		else{
-			$no=1;
-			while($row1= mysqli_fetch_array($resultGet, MYSQLI_BOTH))
-			{	
-				$datetimeObject = new DateTime($row1['datetime']);
-
-				// Get separate date and time variables
-				$date = $datetimeObject->format('Y-m-d');
-				$time = $datetimeObject->format('H:i:s');
-		?>
-		<tr>
-			<td><?php echo $no;?></td>
-			
-			<td><?php echo $row1['exam_name'];?></td>
-			<td><?php echo $date;$no++;?></td>
-			<td><?php echo $time?></td>
-			<td><?php echo $row1['num_stud']?></td>
-			<td><?php echo $row1['total_attendance'];?></td>
-			<td>
-				<a href="AttendanceTake.php?id=<?php echo $row1['exam_id'];?>" class="btn btn-take">Take Attendance</a>
-				<!--<a href="AttendanceView.php?id=<?php //echo $row1['exam_id'];?>" class="btn btn-view">View Attendance</a>-->
-			</td>
-		</tr><?php	}	}?>
-	</table>
+	$queryGet = "SELECT attendance.*, users.name, users.local_id FROM `attendance` INNER JOIN users ON attendance.user_id = users.id";
+	$resultGet = mysqli_query($link,$queryGet);
+	if(!$resultGet)
+	{
+		die ("Invalid Query - get Items List: ". mysqli_error($link));
+	}
+	else
+	{?>
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Time</th>
+                                        <th class="text-secondary opacity-7">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+<?php	while($row= mysqli_fetch_array($resultGet, MYSQLI_BOTH))
+		{	
+			$date = date('d-m-Y', strtotime($row['date']));
+			$time = date('g:i A', strtotime($row['time']));
+			?>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm"><?php echo $row['name']?></h6>
+                                                    <p class="text-xs text-secondary mb-0"><?php echo $row['local_id']; ?></p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+										   <p class="text-xs font-weight-bold mb-0"><?php echo $date;?></p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"><?php echo $time;?></p>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="ms-auto text-middle">
+                                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="Delete.php?attendanceID=<?php echo $row['id'];?>" onclick="return confirm('Are you sure?')"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
 <?php	}?>
-	<script>
-		$("#class").on("change", function(){
-		  var package = $(this).val();
-		  $(".output").hide().prop("disabled", true)
-		  $("#" + package).show().prop("disabled", false);
-		});
+                                    </tbody>
+                                </table>
+                                <?php
 
-	</script>
-	<?php	
 }
-else{
+?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php include "footer.php";?>
+    </body>
+
+    </html>
+    <?php
+}
+
+else	{
     echo "No session exists or session has expired. Please log in again ";
-	echo "Page will be redirect in 2 seconds";
-	header('Refresh: 2; ../Auth/Login.php');
-}	?>	 
-</body>
-</html>
+    echo "Page will be redirect in 5 seconds";
+    header('Refresh: 5; ../Auth/Login.php');
+}
+?>
