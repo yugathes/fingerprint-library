@@ -69,7 +69,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Staff/Student ID</label>
-                                        <input class="form-control" type="text" name="student_id"> <!--pattern="^[A-Z][A-Z]0[01]\d{5}$"-->
+                                        <input class="form-control" type="text" name="student_id" pattern="^[A-Z][A-Z]0[01]\d{5}$">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
