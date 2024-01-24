@@ -31,55 +31,5 @@
 <div class="left-sidebar">
 <?php //include 'count.php';?>
 </div>
-<?php
-	function getCourseName($id) {
-		include "../Auth/connection.php";
-		$query = "SELECT name FROM course WHERE id = ?";
-		$stmt = $connection->prepare($query);
-		$stmt->bind_param("i", $id);
-		$stmt->execute();
-		// Bind the result
-		$stmt->bind_result($name);
 
-		// Fetch the result
-		if ($stmt->fetch()) {
-			// Close the database connection
-			$stmt->close();
-			$connection->close();
-
-			return $name;
-		} else {
-			// Close the database connection
-			$stmt->close();
-			$connection->close();
-
-			// Return an error value or handle the case where no name is found
-			return "Name not found";
-		}
-	}
-	function getSemesterName($id) {
-		include "../Auth/connection.php";
-		$query = "SELECT name FROM semester WHERE id = ?";
-		$stmt = $connection->prepare($query);
-		$stmt->bind_param("i", $id);
-		$stmt->execute();
-		// Bind the result
-		$stmt->bind_result($name);
-
-		// Fetch the result
-		if ($stmt->fetch()) {
-			// Close the database connection
-			$stmt->close();
-			$connection->close();
-
-			return $name;
-		} else {
-			// Close the database connection
-			$stmt->close();
-			$connection->close();
-
-			// Return an error value or handle the case where no name is found
-			return "Name not found";
-		}
-	}
 ?>

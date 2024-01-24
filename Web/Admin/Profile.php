@@ -1,8 +1,7 @@
 <?php
 //call this function to check if session exists or not
-
 session_start();
-
+global $link;
 //if session exists
 if(isset ($_SESSION["userId"])) //session userid gets value from text field named userid, shown in user.php
 {	include "Header.php";
@@ -62,13 +61,14 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                         <div class="card-header pb-0">
 <?php
 //	$pID = $_GET["id"];
+$lin = mysqli_connect('localhost', 'root', '', 'library');
 	$queryGet = "select * from users where id='".$_SESSION["userId"]."'";
 
-	$resultGet = mysqli_query($link,$queryGet);
+$resultGet = mysqli_query($lin, $queryGet);
 
 	if(!$resultGet)
 	{
-		die ("Invalid Query - get Register List: ". mysqli_error($link));
+        die ("Invalid Query - get Register List: " . mysqli_error($lin));
 	}
 	else
 	{?>
@@ -102,7 +102,16 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Password</label>
-                                        <input class="form-control" type="text" name="password" value="<?php echo $baris['password'] ?>">
+                                        <div class="input-group" style="background-color: white;">
+                                            <input class="form-control" type="text" name="password" id="password"
+                                                   value="<?php echo $baris['password'] ?>">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" style="height:100%;border: 0;"
+                                                        type="button" id="togglePassword">
+                                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -137,6 +146,25 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                 </div>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#togglePassword').on('click', function () {
+                    const passwordInput = $('#password');
+                    const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+                    passwordInput.attr('type', type);
+
+                    // Toggle eye icon
+                    const eyeIcon = $('#togglePassword i');
+                    eyeIcon.toggleClass('fa-eye-slash');
+                    eyeIcon.toggleClass('fa-eye');
+                });
+            });
+        </script>
         <?php include "footer.php";?>
     </body>
 

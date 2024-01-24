@@ -25,7 +25,7 @@ $admins = mysqli_num_rows($adminsRow);
 
 $todayAttn = 0;
 $todayDate = date("Y-m-d");
-$todayAttnQuery = "SELECT * FROM attendance WHERE date = '".$todayDate."'";
+$todayAttnQuery = "SELECT * FROM attendance WHERE date = '$todayDate'";
 $todayAttnRow = mysqli_query($link,$todayAttnQuery);
 $todayAttn = mysqli_num_rows($todayAttnRow);
 
@@ -42,7 +42,7 @@ $todayAttn = mysqli_num_rows($todayAttnRow);
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Student</p>
                                     <h5 class="font-weight-bolder">
-                                        <?php echo $students?>
+                                        <?php echo $students; ?>
                                     </h5>
 <!--                                    <p class="mb-0">-->
 <!--                                        <span class="text-success text-sm font-weight-bolder">+55%</span>-->
@@ -67,7 +67,7 @@ $todayAttn = mysqli_num_rows($todayAttnRow);
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Lecturer</p>
                                     <h5 class="font-weight-bolder">
-                                        <?php echo $lectures?>
+                                        <?php echo $lectures; ?>
                                     </h5>
 <!--                                    <p class="mb-0">-->
 <!--                                        <span class="text-success text-sm font-weight-bolder">+3%</span>-->
@@ -92,7 +92,7 @@ $todayAttn = mysqli_num_rows($todayAttnRow);
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Admin</p>
                                     <h5 class="font-weight-bolder">
-                                        <?php echo $admins?>
+                                        <?php echo $admins; ?>
                                     </h5>
 <!--                                    <p class="mb-0">-->
 <!--                                        <span class="text-danger text-sm font-weight-bolder">-2%</span>-->
@@ -117,7 +117,7 @@ $todayAttn = mysqli_num_rows($todayAttnRow);
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Attendance</p>
                                     <h5 class="font-weight-bolder">
-                                        <?php echo $todayAttn?>
+                                        <?php echo $todayAttn; ?>
                                     </h5>
                                 </div>
                             </div>
