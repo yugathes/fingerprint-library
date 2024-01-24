@@ -61,7 +61,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                         <div class="card-header pb-0">
 <?php
 //	$pID = $_GET["id"];
-$lin = mysqli_connect('localhost', 'root', '', 'library');
+$lin = mysqli_connect('localhost', 'root', 'sudo', 'library');
 	$queryGet = "select * from users where id='".$_SESSION["userId"]."'";
 
 $resultGet = mysqli_query($lin, $queryGet);

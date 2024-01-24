@@ -26,8 +26,9 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
 <?php
+	$lin = mysqli_connect('localhost', 'root', 'sudo', 'library');
 	$queryGet = "select * from users ORDER BY type_user ASC";
-	$resultGet = mysqli_query($link,$queryGet);
+	$resultGet = mysqli_query($lin,$queryGet);
 	if(!$resultGet)
 	{
 		die ("Invalid Query - get Items List: ". mysqli_error($link));

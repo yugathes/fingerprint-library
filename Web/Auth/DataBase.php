@@ -7,7 +7,7 @@ $password    = "";
 $errors = array(); 
 
 // connect to the database
-$ds = mysqli_connect('localhost', 'root', '', 'library');
+$ds = mysqli_connect('localhost', 'root', 'sudo', 'library');
 
 
  // LOGIN USER
