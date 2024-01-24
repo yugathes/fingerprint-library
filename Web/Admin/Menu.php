@@ -9,7 +9,27 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
 <html lang="en">
 
 <body class="g-sidenav-show dark-version bg-gray-100">
+<?php
 
+$studentsQuery = "SELECT * FROM users WHERE type_user = 'Student'";
+$studentsRow = mysqli_query($link,$studentsQuery);
+$students = mysqli_num_rows($studentsRow);
+
+$lecturesQuery = "SELECT * FROM users WHERE type_user = 'Lecturer'";
+$lecturesRow = mysqli_query($link,$lecturesQuery);
+$lectures = mysqli_num_rows($lecturesRow);
+
+$adminsQuery = "SELECT * FROM users WHERE type_user = 'Admin'";
+$adminsRow = mysqli_query($link,$adminsQuery);
+$admins = mysqli_num_rows($adminsRow);
+
+$todayAttn = 0;
+$todayDate = date("Y-m-d");
+$todayAttnQuery = "SELECT * FROM attendance WHERE date = '".$todayDate."'";
+$todayAttnRow = mysqli_query($link,$todayAttnQuery);
+$todayAttn = mysqli_num_rows($todayAttnRow);
+
+?>
 <main class="main-content position-relative border-radius-lg ">
     <?php include "navbar.php";?>
     <div class="container-fluid py-4">
@@ -20,9 +40,9 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Registration</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Student</p>
                                     <h5 class="font-weight-bolder">
-                                        500
+                                        <?php echo $students?>
                                     </h5>
 <!--                                    <p class="mb-0">-->
 <!--                                        <span class="text-success text-sm font-weight-bolder">+55%</span>-->
@@ -45,9 +65,9 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Attendance</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Lecturer</p>
                                     <h5 class="font-weight-bolder">
-                                        2,300
+                                        <?php echo $lectures?>
                                     </h5>
 <!--                                    <p class="mb-0">-->
 <!--                                        <span class="text-success text-sm font-weight-bolder">+3%</span>-->
@@ -70,9 +90,9 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">New Registration</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Admin</p>
                                     <h5 class="font-weight-bolder">
-                                        +462
+                                        <?php echo $admins?>
                                     </h5>
 <!--                                    <p class="mb-0">-->
 <!--                                        <span class="text-danger text-sm font-weight-bolder">-2%</span>-->
@@ -95,9 +115,9 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Overall Logs</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Attendance</p>
                                     <h5 class="font-weight-bolder">
-                                        103,430
+                                        <?php echo $todayAttn?>
                                     </h5>
                                 </div>
                             </div>
