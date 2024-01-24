@@ -39,6 +39,7 @@ if (isset($_POST['login_user'])) {
 			$_SESSION['userId'] = $id;
 			$_SESSION['name'] = $name;
 			$_SESSION['success'] = "You are now logged in";
+			mysqli_close($ds);
 			header('location: ../Admin/Menu.php');
 		}
 		elseif ($type_user == "Lecturer")
@@ -46,6 +47,7 @@ if (isset($_POST['login_user'])) {
 			$_SESSION['userId'] = $id;
 			$_SESSION['name'] = $name;
 			$_SESSION['success'] = "You are now logged in";
+			mysqli_close($ds);
 			header('location: ../Lecturer/Menu.php');
 		}
   	}
