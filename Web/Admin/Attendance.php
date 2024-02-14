@@ -19,7 +19,7 @@ if(isset ($_SESSION["userId"])) //session userid gets value from text field name
                     <div class="card mb-4">
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
-                                <h6>Attendance table</h6>
+                                <h6>Log Entries table</h6>
 <!--                               TODO: Search-->
                             </div>
                         </div>

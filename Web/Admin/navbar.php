@@ -15,7 +15,7 @@
                     <li class="nav-item d-flex align-items-center">
                     <a href="<?php echo $link;?>" class="nav-link text-white font-weight-bold px-0">
                         <i class="fa fa-calendar-check-o me-sm-1"></i>
-                        <span class="d-sm-inline d-none">Take Attendance</span>
+                        <span class="d-sm-inline d-none">Take Log Entries</span>
                     </a>
                     </li>
                 </ul>

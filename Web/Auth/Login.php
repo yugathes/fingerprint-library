@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/ico" href="../assets/img/icons/favicon.ico">
-  <title>UNITEN Library Attendance</title>
+  <title>UNITEN Library Log Entries</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -56,7 +56,7 @@
               <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('../assets/img/library.jpg');
           background-size: cover;">
                 <span class="mask opacity-6" style="background-image: linear-gradient(310deg, #bfc3da 0%, #37363b 100%);}"></span>
-                <h4 class="mt-5 text-white font-weight-bolder position-relative">UNITEN Library Attendance System</h4>
+                <h4 class="mt-5 text-white font-weight-bolder position-relative">UNITEN Library Log Entries</h4>
                 <p class="text-white position-relative">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
               </div>
             </div>
