@@ -197,28 +197,23 @@ def attendance():
     #import os
     #import pickle
     stop = 0
-    import time
     from datetime import datetime
-
-    now = datetime.now()
-
-    today = now.strftime("%Y-%m-%d")
-    time = now.strftime("%H:%M:%S")
     
     while True:
         display_system_ready()
+        now = datetime.now()
+        today = now.strftime("%Y-%m-%d")
         if get_fingerprint():
             #print("Detected #", finger.finger_id, "with confidence", finger.confidence)
-            if(finger.confidence >100):
+            if(finger.confidence >50):
                 name = finger.finger_id
-                print(name)
+                print("Detected #", finger.finger_id, "with confidence", finger.confidence)
                 cursor = db.cursor()
-                sql2 = "SELECT * FROM attendance WHERE user_id = '%d' AND date '%s'" % (name, today)
+                sql2 = "SELECT * FROM attendance WHERE user_id = '%d' AND date = '%s'" % (name, today)
                 try:
-                    cursor.execute(sql2)
+                    cursor.execute(sql2 + " AND ABS(TIMESTAMPDIFF(MINUTE, time, CURRENT_TIMESTAMP())) <= 5")                                    
                     if(cursor.rowcount<1):
-                        row = cursor.fetchone()
-                        sql = "INSERT INTO attendance (user_id, date, time) VALUES (%d, '%s', '%s')" % (name, today, time)
+                        sql = "INSERT INTO attendance (user_id, date, time) VALUES (%d, '%s', CURRENT_TIME())" % (name, today)
                         print("Attended :",name)
                         try:
                             cursor.execute(sql)
@@ -228,9 +223,11 @@ def attendance():
                         except:
                             db.rollback()
                         db.commit()
+                    else:
+                        print("You already attend.Please enter after 5 mins")
+                        display_duplicate()
                 except:
                     db.rollback()
-                print("Detected #", finger.finger_id, "with confidence", finger.confidence)
                 #display.lcd_display_string("Attendance :", 1)
                 #display.lcd_display_string(str(finger.finger_id), 2)
         else:
@@ -396,6 +393,42 @@ def display_detected(id_text):
     x_id = (width - id_text_width) // 2
     y_id = (height - id_text_height) // 2 + 10  # Move down to display below "Detected"
     draw.text((x_id, y_id), id_text, font=font, fill=255)
+    
+    disp.image(image)
+    disp.display()
+    time.sleep(5)
+
+def display_duplicate():
+    disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
+    disp.begin()
+    disp.clear()
+    disp.display()
+    
+    width = disp.width
+    height = disp.height
+    image = Image.new('1', (width, height))
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.load_default()
+    
+    text1 = "You already entered"
+    text2 = "Enter after 5 mins"
+    
+    # Get size for the first text
+    text1_width, text1_height = draw.textsize(text1, font=font)
+    # Calculate position for the first text
+    x1 = (width - text1_width) // 2
+    y1 = (height - text1_height) // 2 - 10  # Move up
+    
+    # Get size for the second text
+    text2_width, text2_height = draw.textsize(text2, font=font)
+    # Calculate position for the second text
+    x2 = (width - text2_width) // 2
+    y2 = (height - text2_height) // 2 + 10  # Move down
+    
+    # Display first text
+    draw.text((x1, y1), text1, font=font, fill=255)
+    # Display second text
+    draw.text((x2, y2), text2, font=font, fill=255)
     
     disp.image(image)
     disp.display()
